@@ -39,7 +39,6 @@ const getAllReducer = (state = initialState, action) => {
         (users) =>
           users.leadId !== action.payload && users._id !== action.payload
       );
-      console.log("+---", newUsers, "===");
       return {
         ...state,
         users: {...newUsers},

@@ -9,7 +9,6 @@ app.use(express.json())
 
 exports.auth = async(req,res,next) =>{
   const checkUser = req.body;
-  console.log("Middleware checkuser--",checkUser.email)
   
   const users = await userModel.find({email: checkUser.email });
   //users.toString() - returns obj instead of array...

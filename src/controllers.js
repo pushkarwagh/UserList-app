@@ -5,7 +5,6 @@ const UserRegister = require("./models/userSchema");
 const { registerValidation, loginValidation } = require("./validations.js");
 
 exports.getAll = async (req, res) => {
-  console.log("getAll-controller(req)", req.body);
   try {
     const users = await UserRegister.find({});
     res.status(200).send(users);
@@ -24,10 +23,8 @@ exports.getUser = async (req, res) => {
 };
 
 exports.getTeam = async (req, res) => {
-  console.log("getteam-controller(req)", req.body);
   try {
     const users = await UserRegister.find({ leadId: req.params.id });
-    console.log("get-team-users", users);
     if (users.length <= 0) return res.status(400).send("No users in your team");
     res.status(200).send(users);
   } catch (error) {
@@ -38,9 +35,7 @@ exports.getTeam = async (req, res) => {
 exports.addUser = async (req, res) => {
   try {
     const User = await UserRegister.findOne({ _id: req.params.id });
-    console.log("----adduser",User);
     if (User !== null) {
-      console.log("aaa");
       const { error } = registerValidation(req.body);
       if (error) return res.status(400).send(error.details[0].message);
 
@@ -143,7 +138,6 @@ exports.loginUser = async (req, res) => {
 
     //create token
     const tokenKey = process.env.JWT_SECRET_KEY;
-    console.log("Token_Key:--->>", tokenKey);
 
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET_KEY, {
       expiresIn: "1d",
@@ -184,7 +178,6 @@ exports.updateUser = async (req, res) => {
 exports.deleteUser = async (req, res) => {
   try {
     let user = await UserRegister.findByIdAndDelete({ _id: req.body._id });
-    console.log("---",user);
     if (!user) {
        return res.status(400).send("user not found");
     }
