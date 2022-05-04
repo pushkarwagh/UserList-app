@@ -13,13 +13,13 @@ app.use(express.json());
 app.use(cors());
 app.use(routes);
 
-app.use(express.static(path.resolve(__dirname, "./client/build")));
+app.use(express.static(path.resolve(__dirname, "../client/build")));
 app.get("*", function (request, response) {
-  response.sendFile(path.resolve(__dirname, "./client/build","index.html"));
+  response.sendFile(path.resolve(__dirname, "../client/build","index.html"));
 });
 
 dot_env.config();
-const port = process.env.PORT;
+const port = process.env.PORT || 8000;
 console.log("dote env ==>",process.env.PORT) 
 
 app.listen(port ,() => 
