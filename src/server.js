@@ -19,7 +19,7 @@ app.get("*", function (request, response) {
 });
 
 dot_env.config();
-const port = process.env.PORT || 8000 ;
+const port = process.env.PORT;
 console.log("dote env ==>",process.env.PORT) 
 
 app.listen(port ,() => 
