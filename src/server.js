@@ -2,6 +2,7 @@ const express = require("express");
 const dot_env = require("dotenv");
 const path = require("path");
 var cors = require("cors");
+const host = "0.0.0.0";
 
 require("./connection.js");
 const routes = require("./routes.js");
@@ -22,6 +23,6 @@ if (process.env.NODE_ENV == "production") {
   });
 }
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 8080;
 
-app.listen(port, () => console.log(`server listening on ${port}`));
+app.listen(port, host, () => console.log(`server listening on ${port}`));

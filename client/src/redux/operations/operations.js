@@ -1,7 +1,6 @@
 import { toast } from "react-toastify";
 // import Loader from "react-js-loader";
-
-import API from "./api.js";
+import axios from "axios";
 import { getValueFromLs, setValueInLs } from "../utils/helpers.js";
 import {
   loginRequest,
@@ -34,7 +33,7 @@ import {
 export const getAll = () => {
   return (dispatch) => {
     dispatch(getRequest());
-    API.get("/all")
+    axios.get("/all")
       .then((response) => {
         dispatch(getSuccess(response.data));
       })
@@ -48,7 +47,7 @@ export const getUser = (id) => {
   return async (dispatch) => {
     try {
       dispatch(getUserRequest());
-      const response = await API.get(`/user/${id}`, {
+      const response = await axios.get(`/user/${id}`, {
         headers: {
           authorization: getValueFromLs("token"),
         },
@@ -66,7 +65,7 @@ export const getTeam = (id) => {
   return async (dispatch) => {
     try {
       dispatch(getTeamRequest());
-      const response = await API.get(`/team/${id}`, {
+      const response = await axios.get(`/team/${id}`, {
         headers: {
           authorization: getValueFromLs("token"),
         },
@@ -84,7 +83,7 @@ export const getTeam = (id) => {
 export const register = (user) => {
   return async () => {
     try {
-      const response = await API.post("/register", user);
+      const response = await axios.post("/register", user);
 
       toast.success(response.data);
       return { register: true };
@@ -98,7 +97,7 @@ export const register = (user) => {
 export const addUser = (user,id) => {
   return async (dispatch) => {
     try {
-      const response = await API.post(`/add/${id}`, user, {
+      const response = await axios.post(`/add/${id}`, user, {
         headers: {
           authorization: getValueFromLs("token"),
         },
@@ -117,7 +116,7 @@ export const loginUser = (user) => {
   return async (dispatch) => {
     try {
       dispatch(loginRequest());
-      const response = await API.post("/login", user);
+      const response = await axios.post("/login", user);
 
       //setting token..
       setValueInLs("token",response.data.token);
@@ -138,7 +137,7 @@ export const loginUser = (user) => {
 export const updateProfile = (user, id) => {
   return async (dispatch) => {
     try {
-      const response = await API.patch(`/editProfile/${id}`, user, {
+      const response = await axios.patch(`/editProfile/${id}`, user, {
         headers: {
           authorization: getValueFromLs("token"),
         },
@@ -159,7 +158,7 @@ export const editUser = (user) => {
     try {
       const { _id: id } = user;
 
-      const response = await API.patch(`/edit/${id}`, user, {
+      const response = await axios.patch(`/edit/${id}`, user, {
         headers: {
           authorization: getValueFromLs("token"),
         },
@@ -177,7 +176,7 @@ export const editUser = (user) => {
 export const deleteUser = (_id) => {
   return async (dispatch) => {
     try {
-      const response = await API.delete("/delete", {
+      const response = await axios.delete("/delete", {
         headers: {
           authorization: getValueFromLs("token"),
         },

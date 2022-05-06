@@ -35,7 +35,7 @@ exports.getTeam = async (req, res) => {
 exports.addUser = async (req, res) => {
   try {
     const User = await UserRegister.findOne({ _id: req.params.id });
-    if (User !== null) {
+    if (User !== null && User.leadId == 0) {
       const { error } = registerValidation(req.body);
       if (error) return res.status(400).send(error.details[0].message);
 
