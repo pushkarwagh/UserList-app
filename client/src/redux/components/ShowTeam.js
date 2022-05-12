@@ -12,7 +12,7 @@ function ShowTeam() {
   const loggedInUser = useLocation();
   const users = useSelector((state) => state.getTeam.users);
   const teamMembers = Array.from(users);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const deleteUserAccount = async (userId) => {
     const res = await dispatch(deleteUser(userId));
@@ -24,67 +24,64 @@ function ShowTeam() {
 
   return (
     <div>
-      <div className="container bg-light p-2" style={{ overflowX: 'auto', fontSize: '14px' }}>
+      <div
+        className="container bg-light p-2"
+        style={{ overflowX: "auto", fontSize: "14px" }}
+      >
         <h3 className="text-center ">
           <FaUserCircle /> {loggedInUser.state.data}
         </h3>
       </div>
- { teamMembers.length > 0 && 
-      <Table
-        striped
-        bordered
-        hover
-        variant="light"
-        style={{ overflowWrap: "anywhere" }}
-      >
-        <thead>
-          <tr>
-            <th scope="col-2">Id</th>
-            <th scope="col-2">Profile</th>
-            <th scope="col">Name</th>
-            <th scope="col-2">Email</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {teamMembers &&
-            teamMembers.map((user, i) => {
-              return (
-                <tr key={i}>
-                  <td>{user._id}</td>
+      {teamMembers.length > 0 && (
+        <Table striped bordered hover variant="light">
+          <thead>
+            <tr>
+              <th scope="col-2">Id</th>
+              <th scope="col-2">Profile</th>
+              <th scope="col">Name</th>
+              <th scope="col-2">Email</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {teamMembers &&
+              teamMembers.map((user, i) => {
+                return (
+                  <tr key={i}>
+                    <td>{user._id}</td>
 
-                  <td>
-                    <img
-                      className="shadow rounded"
-                      src={user.profile == "" ? <FaUserAlt /> : user.profile}
-                      style={{ width: "50px", height: "50px" }}
-                    />
-                  </td>
+                    <td>
+                      <img
+                        className="shadow rounded"
+                        src={user.profile == "" ? <FaUserAlt /> : user.profile}
+                        style={{ width: "50px", height: "50px" }}
+                      />
+                    </td>
 
-                  <td>
-                    <MdAccountBox /> {user.name}
-                  </td>
+                    <td>
+                      <MdAccountBox /> {user.name}
+                    </td>
 
-                  <td>
-                    <strong>{user.email}</strong>
-                  </td>
+                    <td>
+                      <strong>{user.email}</strong>
+                    </td>
 
-                  <td>
-                    <button
-                      className="btn btn-danger"
-                      onClick={() => deleteUserAccount(user._id)}
-                    >
-                      {" "}
-                      <MdDelete />
-                      Account
-                    </button>
-                  </td>
-                </tr>
-              ); //return close...
-            })}
-        </tbody>
-      </Table>
-         }
+                    <td>
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => deleteUserAccount(user._id)}
+                      >
+                        {" "}
+                        <MdDelete />
+                        Account
+                      </button>
+                    </td>
+                  </tr>
+                ); //return close...
+              })}
+          </tbody>
+        </Table>
+      )}
     </div>
   );
 }

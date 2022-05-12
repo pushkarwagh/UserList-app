@@ -12,10 +12,9 @@ function Home() {
 
   const neUser = Array.from(users);
 
-  useEffect(() => {    
-    dispatch(getAll())    
-  },[])
-  
+  useEffect(() => {
+    dispatch(getAll());
+  }, []);
 
   const [filterList, setFilterList] = useState(neUser);
 
@@ -31,7 +30,7 @@ function Home() {
     setFilterList(filteredValues);
   };
 
- return (
+  return (
     <>
       {loginUser.isAdmin ? (
         <div className="main">
@@ -40,25 +39,20 @@ function Home() {
             style={{ height: "100px" }}
           >
             <div>USER'S-LIST</div>
-
           </div>
 
-          <div className="user-table " style={{ overflowX: 'auto', fontSize: '14px' }}>
+          <div
+            className="user-table "
+            style={{ overflowX: "auto", fontSize: "14px" }}
+          >
             <input
               className="my-1 shadow border border-none"
               type="search"
               placeholder="Search user"
               onChange={handleSearch}
-              
             />
             {users.length > 0 ? (
-              <Table
-                striped
-                bordered
-                hover
-                variant="light"
-                style={{ overflowWrap: "anywhere" , overflow:"auto"}}
-              >
+              <Table striped bordered hover variant="light">
                 <thead>
                   <tr>
                     <th></th>
@@ -70,13 +64,11 @@ function Home() {
                   </tr>
                 </thead>
                 {/* <tbody> */}
-                  {filterList &&
-                    filterList.map((user, i) => {
-                      if (user.leadId == 0)
-                        return (
-                          <UserTableRow key={i} index={i + 1} user={user} />
-                        );
-                    })}
+                {filterList &&
+                  filterList.map((user, i) => {
+                    if (user.leadId == 0)
+                      return <UserTableRow key={i} index={i + 1} user={user} />;
+                  })}
                 {/* </tbody> */}
               </Table>
             ) : (
