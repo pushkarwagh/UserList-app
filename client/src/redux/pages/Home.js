@@ -56,7 +56,7 @@ function Home() {
                 bordered
                 hover
                 variant="light"
-                style={{ overflowWrap: "anywhere" }}
+                style={{ overflowWrap: "anywhere" , overflow:"auto"}}
               >
                 <thead>
                   <tr>
