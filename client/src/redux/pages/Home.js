@@ -43,12 +43,13 @@ function Home() {
 
           </div>
 
-          <div className="user-table ">
+          <div className="user-table " style={{ overflowX: 'auto', fontSize: '14px' }}>
             <input
               className="my-1 shadow border border-none"
               type="search"
               placeholder="Search user"
               onChange={handleSearch}
+              
             />
             {users.length > 0 ? (
               <Table
