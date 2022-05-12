@@ -24,7 +24,7 @@ function ShowTeam() {
 
   return (
     <div>
-      <div className="container bg-light p-2">
+      <div className="container bg-light p-2" style={{ overflowX: 'auto', fontSize: '14px' }}>
         <h3 className="text-center ">
           <FaUserCircle /> {loggedInUser.state.data}
         </h3>
