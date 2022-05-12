@@ -137,6 +137,7 @@ export const loginUser = (user) => {
 export const updateProfile = (user, id) => {
   return async (dispatch) => {
     try {
+      dispatch(getUserRequest());
       const response = await axios.patch(`/editProfile/${id}`, user, {
         headers: {
           authorization: getValueFromLs("token"),

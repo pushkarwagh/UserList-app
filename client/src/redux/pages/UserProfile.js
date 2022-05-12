@@ -5,29 +5,29 @@ import { FaUserCircle } from "react-icons/fa";
 import { updateProfile } from "../operations/operations";
 
 function UserProfile() {
-  const singleUser = useSelector((state) => state.getUser.user);
+  const { user, loading } = useSelector((state) => state.getUser);
   const dispatch = useDispatch();
 
   const [state, setState] = useState("");
   const [newProfile, setNewProfile] = useState("");
 
   useEffect(() => {
-    setState(singleUser);
-  }, [singleUser]);
+    setState(user);
+  }, [user]);
 
   const selectProfile = (e) => {
     setNewProfile(e.target.files[0]);
   };
 
   const changeProfile = async (state, newProfile) => {
-      if (newProfile !== "") {
+    if (newProfile !== "") {
       const formData = new FormData();
       formData.append("profile", newProfile);
 
       const res = await dispatch(updateProfile(formData, state._id));
       if (res.editProfile) {
-        setState({ ...singleUser, profile: singleUser.profile });
-        setNewProfile("")
+        setState({ ...user, profile: user.profile });
+        setNewProfile("");
       }
     }
   };
@@ -45,16 +45,20 @@ function UserProfile() {
       >
         <div>
           <p className="my-1 p-1">Profile-Photo</p>
-          <img
-            src={state.profile}
-            alt="user_profile"
-            style={{
-              width: "150px",
-              height: "120px",
-              border: "2px solid #559dac",
-              borderRadius: "5px",
-            }}
-          />
+          {!loading ? (
+            <img
+              src={state.profile}
+              alt="user_profile"
+              style={{
+                width: "150px",
+                height: "120px",
+                border: "2px solid #559dac",
+                borderRadius: "5px",
+              }}
+            />
+          ) : (
+            <div className="spinner"></div>
+          )}
           <div className="my-2">
             <input
               className="input p-2 "
